@@ -12,14 +12,14 @@ const baseConfig = {
   input: 'src/entry.js',
   plugins: [
     replace({
-      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.NODE_ENV': JSON.stringify('development'),
     }),
     commonjs(),
     vue({
       css: true,
       compileTemplate: true,
       template: {
-        isProduction: true,
+        isProduction: false,
       },
     }),
     buble(),

@@ -4,31 +4,35 @@
       class="auth-code_input-box"
       v-for="(item, index) in codeArray"
       :key="index"
-      :style="{'margin-left': (index===0?0:(codeLength/2 === index)?18:6) + 'px'}"
+      :style="{
+        'margin-left':
+          (index === 0 ? 0 : codeLength / 2 === index ? 18 : 6) + 'px',
+      }"
     >
       <input
         type="text"
         class="auth-code_input"
         @keydown.prevent="handlePress($event, index)"
+        @input="handlePress($event, index)"
         ref="authcode_input"
-      >
+      />
     </div>
   </div>
 </template>
 <script>
 const numericKey = Array.from({ length: 10 }, (v, i) => i + "");
 export default {
-  name: 'VueAuthCodeInput',
+  name: "VueAuthCodeInput",
   props: {
     codeLength: {
       type: Number,
-      default: 6
-    }
+      default: 6,
+    },
   },
   computed: {
     codeArray() {
       return Array.from({ length: this.codeLength }, () => "");
-    }
+    },
   },
   methods: {
     handlePress(e, index) {
@@ -51,11 +55,9 @@ export default {
     updateCodeArray(index, value) {
       this.$refs["authcode_input"][index].value = value;
       this.codeArray.splice(index, 1, value);
-      this.$emit('inputChange', this.codeArray, index)
-      if (
-        this.codeArray.every(Boolean)
-      ) {
-        this.$emit('inputComplete', this.codeArray, index)
+      this.$emit("inputChange", this.codeArray, index);
+      if (this.codeArray.every(Boolean)) {
+        this.$emit("inputComplete", this.codeArray, index);
       }
     },
     switchFocusAndSelect(index, direction = 1) {
@@ -69,8 +71,8 @@ export default {
         this.codeArray.splice(index + direction, 1, "");
         this.$refs["authcode_input"][index + direction].focus();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -103,4 +105,3 @@ export default {
   box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
 }
 </style>
-
