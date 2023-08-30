@@ -1,6 +1,6 @@
 {
   "name": "vue-auth-code-input-with-mobile-support",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Authentication code input component in vue",
   "keywords": [
     "vue",

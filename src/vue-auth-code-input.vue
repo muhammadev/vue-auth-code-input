@@ -10,7 +10,7 @@
       }"
     >
       <input
-        type="text"
+        type="number"
         class="auth-code_input"
         @keydown="handleNavigation($event, index)"
         @input="handleValue($event, index)"
