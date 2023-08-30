@@ -12,8 +12,8 @@
       <input
         type="text"
         class="auth-code_input"
-        @keydown.prevent="handlePress($event, index)"
-        @input="handlePress($event, index)"
+        @keydown="handleNavigation($event, index)"
+        @input="handleValue($event, index)"
         ref="authcode_input"
       />
     </div>
@@ -35,12 +35,15 @@ export default {
     },
   },
   methods: {
-    handlePress(e, index) {
-      let content = this.$refs["authcode_input"][index].value;
-      if (numericKey.indexOf(e.key) > -1) {
-        this.updateCodeArray(index, e.key);
+    handleValue(e, index) {
+      if (numericKey.indexOf(e.target.value) > -1) {
+        this.updateCodeArray(index, e.target.value);
         this.switchFocusAndSelect(index, 1);
-      } else if (["ArrowRight", "Tab"].indexOf(e.key) > -1) {
+      }
+    },
+    handleNavigation(e, index) {
+      let content = this.$refs["authcode_input"][index].value;
+      if (["ArrowRight", "Tab"].indexOf(e.key) > -1) {
         this.switchFocusAndSelect(index, 1);
       } else if (["ArrowLeft"].indexOf(e.key) > -1) {
         this.switchFocusAndSelect(index, -1);
@@ -103,5 +106,15 @@ export default {
   outline: none;
   border: 1px solid #97cee5;
   box-shadow: 0 0 0 3px rgba(131, 192, 253, 0.5);
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
